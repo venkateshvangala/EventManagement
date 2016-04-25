@@ -1,0 +1,7 @@
+New log file opened at Mon Apr 25 14:54:22 IST 2016 by 23384@PRINHYLTPHP0435
+Taking next connection to: 45954
+New client attempting to connect on port: 42751-45954
+  Address = /127.0.1.1:45954
+This client on port 42751 has uuid 90571b6a-611f-45b9-9b46-24854583bcbe configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-90571b6a-611f-45b9-9b46-24854583bcbe
+Taking next connection to: 45954
