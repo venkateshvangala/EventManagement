@@ -1,8 +1,9 @@
+package globalfilters
+
 import javax.inject._
 import play.api._
 import play.api.http.HttpFilters
 import play.api.mvc._
-
 import filters.ExampleFilter
 
 /**
@@ -27,6 +28,7 @@ class Filters @Inject() (
     // Use the example filter if we're running development mode. If
     // we're running in production or test mode then don't use any
     // filters at all.
+    Logger.info("Welcome to play")
     if (env.mode == Mode.Dev) Seq(exampleFilter) else Seq.empty
   }
 
