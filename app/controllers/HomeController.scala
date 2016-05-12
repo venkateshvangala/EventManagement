@@ -3,6 +3,11 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
+import dao.impl.CatDaoImpl
+import models.data.Persons
+import models.data.Person
+import scala.concurrent.ExecutionContext.Implicits.global
+
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -18,6 +23,10 @@ class HomeController @Inject() extends Controller {
    * a path of `/`.
    */
   def index = Action {
+    val userList = Persons.listAll;
+    userList foreach { person => 
+      person.map { person1 => println(person1.id) }
+    }   
     Ok(views.html.index("Your new application is ready."))
   }
 
