@@ -5,6 +5,9 @@
 # Controller showing a home page
 GET     /                           controllers.HomeController.index
 
+GET     /getJson					controllers.HomeController.getJsonResponse
+
+
 
 
 # Map static resources from the /public folder to the /assets URL path

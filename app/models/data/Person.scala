@@ -6,6 +6,7 @@ import slick.driver.JdbcProfile
 import play.api.Play
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.libs.json.Json
 
 
 case class Person(id: Long, name: String)
@@ -18,10 +19,10 @@ class PersonsTable(tag: Tag) extends Table[Person](tag, "person") {
 
 
 
+ 
 object Persons {
 
   val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
-
   val users = TableQuery[PersonsTable]
 
   def add(user: Person): Future[String] = {
@@ -41,5 +42,5 @@ object Persons {
   def listAll: Future[Seq[Person]] = {
     dbConfig.db.run(users.result)
   }
-
 }
+

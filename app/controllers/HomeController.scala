@@ -7,6 +7,13 @@ import dao.impl.CatDaoImpl
 import models.data.Persons
 import models.data.Person
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.google.gson.Gson
+import play.api.libs.json._
+import models.data.Person
+import play.api.mvc._
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
+
 
 
 /**
@@ -22,12 +29,17 @@ class HomeController @Inject() extends Controller {
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
+  
   def index = Action {
-    val userList = Persons.listAll;
-    userList foreach { person => 
-      person.map { person1 => println(person1.id) }
-    }   
     Ok(views.html.index("Your new application is ready."))
   }
 
+  def getJsonResponse = Action.async  { request =>
+    val userList = Persons.listAll;
+    implicit val residentFormat = Json.format[Person]
+    userList.map { person =>
+      var json = Json.toJson(person)
+      Ok(json);
+    }
+  }
 }
