@@ -3,7 +3,6 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
-import dao.impl.CatDaoImpl
 import models.data.Persons
 import models.data.Person
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -13,6 +12,7 @@ import models.data.Person
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import service.impl.TestServiceImpl
 
 
 
@@ -34,12 +34,17 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
+//  def getJsonResponse = Action.async  { request =>
+//    val userList = Persons.listAll;
+//    implicit val residentFormat = Json.format[Person]
+//    userList.map { person =>
+//      var json = Json.toJson(person)
+//      Ok(json);
+//    }
+//  }
+  
   def getJsonResponse = Action.async  { request =>
-    val userList = Persons.listAll;
-    implicit val residentFormat = Json.format[Person]
-    userList.map { person =>
-      var json = Json.toJson(person)
-      Ok(json);
-    }
+    TestServiceImpl.getAllUser().map { person => Ok(Json.toJson(person)) } 
   }
+  
 }
