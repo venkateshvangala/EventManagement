@@ -13,7 +13,8 @@ import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import service.impl.TestServiceImpl
-
+import dto.PersonDTO
+import dto.PersonDTO
 
 
 /**
@@ -34,17 +35,24 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
-//  def getJsonResponse = Action.async  { request =>
-//    val userList = Persons.listAll;
-//    implicit val residentFormat = Json.format[Person]
-//    userList.map { person =>
-//      var json = Json.toJson(person)
-//      Ok(json);
-//    }
-//  }
-  
   def getJsonResponse = Action.async  { request =>
-    TestServiceImpl.getAllUser().map { person => Ok(Json.toJson(person)) } 
+//    val userList = TestServiceImpl.getAllUser();
+//      
+//    TestServiceImpl.getAllUser().onComplete { person => 
+//      implicit val writestest = Json.writes[PersonDTO] 
+//      implicit val readstest = Json.format[PersonDTO]
+//      Ok(Json.toJson(person))
+//    }
+    
+    val books = TestServiceImpl.getAllUser();
+     books.map { person => 
+           val booksDTO = person.map(PersonDTO.fromBook(_))
+          Ok(Json.toJson(booksDTO))
+     }
+    
+//    TestServiceImpl.getAllUser().map { person => Ok(Json.toJson(person)) }
   }
   
 }
+
+  
