@@ -14,11 +14,6 @@ class Persons(tag: Tag) extends Table[Person](tag, "person") {
 }
 
 
-//object Person {
-//  implicit val personFormat = Json.format[Person]
-//}
-
-
 object Formatters {
   implicit val personFormat = Json.format[Person]
 }

@@ -6,7 +6,6 @@ import play.api.mvc._
 import models.data.Persons
 import models.data.Person
 import scala.concurrent.ExecutionContext.Implicits.global
-import com.google.gson.Gson
 import play.api.libs.json._
 import models.data.Person
 import play.api.mvc._
@@ -36,21 +35,11 @@ class HomeController @Inject() extends Controller {
   }
 
   def getJsonResponse = Action.async  { request =>
-//    val userList = TestServiceImpl.getAllUser();
-//      
-//    TestServiceImpl.getAllUser().onComplete { person => 
-//      implicit val writestest = Json.writes[PersonDTO] 
-//      implicit val readstest = Json.format[PersonDTO]
-//      Ok(Json.toJson(person))
-//    }
-    
     val books = TestServiceImpl.getAllUser();
      books.map { person => 
            val booksDTO = person.map(PersonDTO.fromBook(_))
           Ok(Json.toJson(booksDTO))
      }
-    
-//    TestServiceImpl.getAllUser().map { person => Ok(Json.toJson(person)) }
   }
   
 }
