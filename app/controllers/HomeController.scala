@@ -14,7 +14,9 @@ import play.api.libs.functional.syntax._
 import service.impl.TestServiceImpl
 import dto.PersonDTO
 import dto.PersonDTO
-
+import dao.impl.EventTypeDAOImpl
+import models.data.EventType
+import java.sql.Timestamp
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -40,6 +42,13 @@ class HomeController @Inject() extends Controller {
            val booksDTO = person.map(PersonDTO.fromBook(_))
           Ok(Json.toJson(booksDTO))
      }
+  }
+  
+  def getEventTypes = Action.async { request =>
+    val eventTypes = EventTypeDAOImpl.all
+    eventTypes.map { events =>  
+        Ok(Json.toJson(events))         
+    }
   }
   
 }
