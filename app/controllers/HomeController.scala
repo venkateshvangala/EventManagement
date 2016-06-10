@@ -1,22 +1,27 @@
 package controllers
 
-import javax.inject._
-import play.api._
-import play.api.mvc._
-import models.data.Persons
-import models.data.Person
+//import java.io.File
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.libs.json._
-import models.data.Person
-import play.api.mvc._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
-import service.impl.TestServiceImpl
-import dto.PersonDTO
-import dto.PersonDTO
 import dao.impl.EventTypeDAOImpl
+import dto.PersonDTO
+import dto.PersonDTO
+import javax.inject._
 import models.data.EventType
-import java.sql.Timestamp
+import models.data.Person
+import models.data.Person
+import play.api._
+import play.api.libs.json._
+import play.api.libs.json._
+import play.api.mvc._
+import play.api.mvc._
+import service.impl.TestServiceImpl
+import models.data.EventTypeLogo
+import dao.impl.EventTypeLogoDAO
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
+import java.io.ByteArrayInputStream
+import java.io.IOException
+import models.data.Testing
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -50,6 +55,34 @@ class HomeController @Inject() extends Controller {
         Ok(Json.toJson(events))         
     }
   }
+  
+  def addEventType = Action.async { request =>
+
+    val eventTypes = EventTypeDAOImpl.all
+    eventTypes.map { events =>  
+        Ok(Json.toJson(events))         
+    }
+    
+  }
+  
+   def uploadToDB = Action { request =>
+     
+        val body = request.body.asMultipartFormData
+        
+        
+        val resourceFile = body.get.file("upload-file")
+         val source = scala.io.Source.fromFile( resourceFile.get.ref.file,  "ISO-8859-1")
+         val byteArray = source.map(_.toByte).toArray
+         source.close()
+        
+    val event = Seq(EventTypeLogo(1L, byteArray))
+    EventTypeLogoDAO.add(event);
+                     val b64 = new sun.misc.BASE64Encoder().encode(byteArray)
+    var image = "data:image/png;base64," + b64;
+            
+         Ok(image)
+   }
+   
   
 }
 

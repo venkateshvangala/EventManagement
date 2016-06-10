@@ -14,10 +14,62 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+
     </head>
     <body>
         @* And here's where we render the `Html` object containing
          * the page content. *@
-        @content
+        Venkatesh Kumar V
+        <form enctype='multipart/form-data' method='post'>
+	<div class="row">
+    <p>
+      <label>
+        <span class='label'>Select File:</span>
+        <span class='field custom-file'>
+          <span class='file-field'>
+            <input name='upload-file' type='file' />
+          </span>
+
+        </span>
+      </label>
+    </p>
+	</div>
+	
+	<div>
+		<img src=""/>
+	</div>
+
+    <p class='tar'>
+      <button class='upload button' style="background-color: #555 !important;border: none !important;color : #fff;">Upload</button>
+      <button class='cancel button close'>Cancel</button>
+    </p>
+  </form>
+
     </body>
+
+    <script>
+          $(function(){
+
+
+
+            $(".upload").click(function(){
+                 $('form').ajaxSubmit({
+                    url : "/upload",
+                    dataType : 'json',
+                     success : function(response) {
+                         alert("test")
+                    },
+                    error : function(result) {
+                        $("img").attr("src", result.responseText)
+                        return false
+                    }
+                });
+                 return false
+
+            })
+          });
+    </script>
+
 </html>
