@@ -57,8 +57,11 @@
             $(".upload").click(function(){
                  $('form').ajaxSubmit({
                     url : "/upload",
+                    method: "POST", 
                     dataType : 'json',
+                    data: {name: null, id: null},
                      success : function(response) {
+                    	 $("img").attr("src", result.responseText)
                          alert("test")
                     },
                     error : function(result) {

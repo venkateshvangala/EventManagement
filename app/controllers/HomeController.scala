@@ -66,9 +66,12 @@ class HomeController @Inject() extends Controller {
   }
   
    def uploadToDB = Action { request =>
-     
         val body = request.body.asMultipartFormData
         
+        var name = body.get.dataParts.apply("name").mkString
+        var id = body.get.dataParts.apply("id").mkString
+        
+        Logger.info("id..." + id + "  name____" + name)
         
         val resourceFile = body.get.file("upload-file")
          val source = scala.io.Source.fromFile( resourceFile.get.ref.file,  "ISO-8859-1")
