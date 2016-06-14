@@ -29,7 +29,7 @@
         <span class='label'>Select File:</span>
         <span class='field custom-file'>
           <span class='file-field'>
-            <input name='upload-file' type='file' />
+            <input name='event_logo' type='file' />
           </span>
 
         </span>
@@ -47,31 +47,99 @@
     </p>
   </form>
 
+
+<button class='test button close'>Cancel</button>
     </body>
 
     <script>
           $(function(){
+        	  
+        	  
+        	  $(".test").click(function(){
+         		 $.ajax({
+        			 headers: { 
+        			        'Accept': 'application/json',
+        			        'Content-Type': 'application/json' 
+        			    },
+        			    'type': 'DELETE',
+         			 
+        			 contentType: "application/json",
+         			url : "/deleteEventType/" + 8,
+                       success : function(response) {
+                           alert("test")
+                           return false
+                     },
+                     error : function(result) {
+                     	alert("fail")
+                          return false
+                     }
+         		 })
+          	 });
 
-
-
-            $(".upload").click(function(){
-                 $('form').ajaxSubmit({
-                    url : "/upload",
-                    method: "POST", 
-                    dataType : 'json',
-                    data: {name: null, id: null},
+        	  
+        	 /* $(".test").click(function(){
+        		 $.ajax({
+       			 headers: { 
+       			        'Accept': 'application/json',
+       			        'Content-Type': 'application/json' 
+       			    },
+       			    'type': 'POST',
+        			 
+       			 contentType: "application/json",
+        			url : "/updateEventType",
+                     dataType : 'json',
+                     data: JSON.stringify({name: "Ajax sending", description: "description"}),
                      success : function(response) {
-                    	 $("img").attr("src", result.responseText)
-                         alert("test")
+                          alert("test")
+                          return false
                     },
                     error : function(result) {
-                        $("img").attr("src", result.responseText)
-                        return false
+                    	alert("fail")
+                         return false
+                    }
+        		 })
+         	 }); */
+        	 
+        	 $(".upload").click(function(){
+                 $('form').ajaxSubmit({
+                    url : "/updateEventType",
+                    method: "POST", 
+                    dataType : 'json',
+                    data: {id: 1, name: "Ajax sending", description: "description"},
+                     success : function(response) {
+                          alert("test")
+                          return false
+                    },
+                    error : function(result) {
+                    	alert("failure")
+                         return false
                     }
                 });
                  return false
 
             })
+        	 
+        	 
+			
+
+            /* $(".upload").click(function(){
+                 $('form').ajaxSubmit({
+                    url : "/addEventType",
+                    method: "POST", 
+                    dataType : 'json',
+                    data: {name: "Ajax sending", description: "description"},
+                     success : function(response) {
+                          alert("test")
+                          return false
+                    },
+                    error : function(result) {
+                    	alert(failure)
+                         return false
+                    }
+                });
+                 return false
+
+            }) */
           });
     </script>
 

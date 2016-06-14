@@ -17,7 +17,7 @@ class EventTypeLogoTable(tag: Tag) extends Table[EventTypeLogo](tag, "event_type
   def * = (id, eventImage) <> ((EventTypeLogo.apply _).tupled, EventTypeLogo.unapply)
 }
 
-object EventTypeLogo {
+object EventTypeLogoJsonFormatter {
   implicit val test = Json.format[EventTypeLogo]
 }
 

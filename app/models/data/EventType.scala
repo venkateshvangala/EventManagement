@@ -2,10 +2,7 @@ package models.data
 
 import java.sql.Timestamp
 import slick.driver.PostgresDriver.api._
-import play.api.libs.json.Json
-import play.api.libs.json.Reads
-import play.api.libs.json.Writes
-import play.api.libs.json.JsString
+import play.api.libs.json._
 
 case class EventType(
   id: Long, 
@@ -31,7 +28,10 @@ class EventTypeTable(tag: Tag) extends Table[EventType](tag, "em_event_type") {
   def * = (id, name, description, createdBy, createdOn, updatedBy, updatedOn, eventImg) <> ((EventType.apply _).tupled, EventType.unapply)
 }
 
-object EventType {
+object EventTypeTableQuery extends TableQuery(new EventTypeTable(_))
+
+
+object EventTypeJsonFormatter {
   implicit val tsreads: Reads[Timestamp] = Reads.of[Long] map (new Timestamp(_))
   implicit val tswrites: Writes[Timestamp] = Writes { (ts: Timestamp) => JsString(ts.toString)}
   implicit val test = Json.format[EventType]
