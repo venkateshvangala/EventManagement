@@ -13,11 +13,15 @@ import models.data.EventType
 import java.sql.Timestamp
 import dto.EventTypeMapDTO
 
+/*
+val b64 = new sun.misc.BASE64Encoder().encode(byteArray)
+var image = "data:image/png;base64," + b64;
+*/
 
 @Singleton
 class EventTypeController @Inject() extends Controller {
   
-def getAllEventType = Action.async { request =>
+  def getAllEventType = Action.async { request =>
      EventTypeService.getAllEventTypes.map { events =>  
          Ok(Json.toJson(events.map(EventTypeDTO.toDTO(_))))
     }
